@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed Aggregator</title>
+</head>
+<body>
+    <h2>Content Aggregator App</h2>
+    {% block body %}
+    <form action="{% url 'fetchfeed' %}" method="post">
+        {% csrf_token %}
+        <input type="search" name="searchterm"/>
+        <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+- http://rss.cnn.com/rss/cnn_topstories.rss
+- http://rss.cnn.com/rss/money_latest.rss
+- http://rss.cnn.com/rss/cnn_tech.rss
+- http://feeds.nytimes.com/nyt/rss/Technology
+- http://www.wsj.com/xml/rss/3_7455.xml
+- https://indianexpress.com/feed/      
+- https://www.theguardian.com/help/feeds
+- https://telegraph.co.uk/rss.xml
