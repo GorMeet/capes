@@ -30,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'capess.urls'
+ROOT_URLCONF = 'capes.urls'
 
 TEMPLATES = [
     {
@@ -48,7 +48,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'capess.wsgi.application'
+WSGI_APPLICATION = 'capes.wsgi.application'
 
 DATABASES = {
     'default': {
