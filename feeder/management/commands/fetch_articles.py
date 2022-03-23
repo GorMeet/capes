@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from dateutil import parser
+from feeder.models import FeedLink
 import feedparser
 import ssl
 import json
@@ -10,6 +11,7 @@ if hasattr(ssl, '_create_unverified_context'):
 
 def save_new_article(search):
 
+    '''
     url_list = ['http://rss.cnn.com/rss/cnn_topstories.rss',
                 'http://rss.cnn.com/rss/money_latest.rss',
                 'http://rss.cnn.com/rss/cnn_tech.rss',
@@ -19,6 +21,8 @@ def save_new_article(search):
                 'https://www.theguardian.com/help/feeds',
                 'https://telegraph.co.uk/rss.xml',
                ]
+    '''
+    url_list = FeedLink.objects.values_list('rss_link', flat=True) 
 
     search_result = []
     search = search.lower()

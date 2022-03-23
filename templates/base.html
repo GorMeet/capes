@@ -6,6 +6,9 @@
 </head>
 <body>
     <h2>Content Aggregator App</h2>
+    <a href="{% url 'home' %}"><button>Home</button></a>
+    <a href="{% url 'createfeedlink' %}"><button>Add Feed</button></a>
+
     {% block body %}
     <form action="{% url 'fetchfeed' %}" method="post">
         {% csrf_token %}
@@ -13,5 +16,6 @@
         <input class="btn btn-primary" type="submit" value="submit">
     </form>
     {% endblock %}
+
 </body>
 </html>

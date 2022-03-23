@@ -1,3 +1,4 @@
 from django.db import models
 
-# Create your models here.
+class FeedLink(models.Model):
+    rss_link = models.URLField(unique=True)
