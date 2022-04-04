@@ -4,6 +4,7 @@ from feeder.models import FeedLink
 import feedparser
 import ssl
 import json
+import re
 
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -27,10 +28,8 @@ def save_new_article(search):
     search_result = []
     search = search.lower()
     for url in url_list:
-
-        current = feedparser.parse(url)
-        if len(current.entries) > 5:
-          #print(f"{len(current.entries)} -> {url}")
+       current = feedparser.parse(url)
+       if len(current.entries) > 5:
             for post in current.entries:
                 title = post.title.lower()
                 tags = []
@@ -39,11 +38,11 @@ def save_new_article(search):
                 if 'tags' in post:
                     for tag in post['tags']:
                         if 'term' in tag:
-                            tags = tag.term.lower()
+                            tags.append(tag.term.lower())
                         else:
-                            tags = tag.lower()
+                            tags.append(tag.lower())
                 if search in tags or search in title or search in description:
-                    search_result.append({'title':post.title, 'link':post.link})
+                    search_result.append({'title':post.title, 'link':post.link, 'tags': tags, 'description': description})
     return search_result[:15]
     '''
     feedlist = FeedLink.objects.values_list('rss_link', flat=True) 

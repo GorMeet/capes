@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <a href="{% url 'savefeed' %}"><button>Save</button></a>
+    <h3>Search Result for {{ searchterm }}</h3>
     <ul>
         {% for article in articles %}
         <li>
