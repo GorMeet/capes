@@ -25,12 +25,6 @@ def fetchfeed(request):
             context['articles'].append(article)
     
     posts = len(context["articles"])
-    if posts == 0:
-        out = StringIO()
-        if not searchterm:
-            searchterm = "news"
-        call_command('fetch_articles', search=searchterm, stdout=out)
-        context["articles"] = json.loads(out.getvalue())
     return render(request, 'fetch.html', {'articles':context["articles"], 'searchterm':searchterm})
 
 class AddFeed(CreateView):

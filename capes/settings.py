@@ -1,13 +1,14 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent 
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = 'django-insecure-#8mg+6=u!6-*)oz01$**h4@e-vi6(p^9#iz_qczmp%@p&zuh8z'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.99.100','127.0.0.1',]
 
 
 INSTALLED_APPS = [
@@ -17,7 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'feeder',
+    'feeder.apps.FeederConfig',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -83,13 +85,29 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'capes',
+        'NAME': 'db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.getenv("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.getenv("SQL_USER", "capes"),
+        "PASSWORD": os.getenv("SQL_PASSWORD", "postgres"),
+        "HOST": os.getenv("SQL_HOST", "postgres"),
+        "PORT": os.getenv("SQL_PORT", "5432"),
+    }
+}
+'''
+CRONJOBS = [
+    ('*/5 * * * *', 'django.core.management.call_command', ['fetch_articles'])
+]

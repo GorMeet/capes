@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from dateutil import parser
-from feeder.models import FeedLink
+from feeder.models import FeedLink, Article
 import feedparser
 import ssl
 import json
@@ -9,6 +9,28 @@ import re
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
+def fetch_articles():
+
+    feedlist = FeedLink.objects.values_list('rss_link', flat=True) 
+    for feed in feedlist:
+        feed = feedparser.parse(feed)
+
+        for item in feed.entries:
+            tags = []
+            if 'tags' in item:
+                for tag in item['tags']:
+                    if 'term' in tag:
+                        tags.append(tag['term'].lower())
+                    else:
+                        tags.append(tag.lower())
+            if not Article.objects.filter(title=item.title).exists():
+                article = Article(
+                    title=item.title,
+                    description=item.description,
+                    link=item.link,
+                    tags=tags,
+                )
+                article.save()
 
 def save_new_article(search):
 
@@ -61,7 +83,6 @@ def save_new_article(search):
                     puid=item.guid,
                 )
                 article.save()
-    '''
 
 
 class Command(BaseCommand):
@@ -69,3 +90,7 @@ class Command(BaseCommand):
         parser.add_argument('--search', action='append', type=str)
     def handle(self,  *args, **options):
         return json.dumps(save_new_article(options['search']))
+    '''
+class Command(BaseCommand):
+    def handle(self,  *args, **options):
+        fetch_articles()
