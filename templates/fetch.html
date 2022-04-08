@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <a href="{% url 'savefeed' %}"><button>Save</button></a>
     <h3>Search Result for {{ searchterm }}</h3>
-    <ul>
+    <ol>
         {% for article in articles %}
         <li>
             <a href="{{ article.link }}">{{ article.title }}</a>
         </li>
         {% endfor %}
-    </ul>
+    </ol>
 {% endblock %}
