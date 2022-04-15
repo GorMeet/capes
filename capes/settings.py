@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "feeder.apps.FeederConfig",
     "mail",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
 
 USE_I18N = True
 
@@ -103,6 +104,10 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+AUTH_USER_MODEL = "user.Profile"
+LOGIN_REDIRECT_URL = "home"
+LOGIN_URL = "login"
 
 """
 DATABASES = {

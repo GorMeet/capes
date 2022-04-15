@@ -1,5 +1,5 @@
 from datetime import datetime
-from articleFetcher import fetch_articles
+from articleFetcher import fetch_articles, schedule_mail
 from apscheduler.schedulers.background import BackgroundScheduler
 
 

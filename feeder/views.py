@@ -28,7 +28,7 @@ def get_list(searchterm):
     posts = len(context["articles"])
 
     context["articles"] = [a[0] for a in itertools.groupby(context["articles"])]
-    return context["articles"]
+    return context["articles"][:15]
 
 
 def home(request):

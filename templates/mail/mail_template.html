@@ -1,5 +1,17 @@
-<ol>
-{% for article in articles %}
-    <li><a href="{{ article.link }}">{{ article.title }}</a></li>
-{% endfor %}
-</ol>
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        li > a{
+            background-color: #ffff00;
+        }
+        </style>
+    </head>
+    <body>
+        <ol>
+        {% for article in articles %}
+            <li><a href="{{ article.link }}">{{ article.title }}</a></li>
+        {% endfor %}
+        </ol>
+    </body>
+</html>
