@@ -10,14 +10,9 @@ import json
 import itertools
 
 
-def home(request):
-    return render(request, "base.html")
-
-
-def fetchfeed(request):
+def get_list(searchterm):
     context = {}
     context["articles"] = []
-    searchterm = request.POST.get("searchterm")
     articles_list = Article.objects.values()
 
     for article in articles_list:
@@ -33,6 +28,17 @@ def fetchfeed(request):
     posts = len(context["articles"])
 
     context["articles"] = [a[0] for a in itertools.groupby(context["articles"])]
+    return context["articles"]
+
+
+def home(request):
+    return render(request, "base.html")
+
+
+def fetchfeed(request):
+    searchterm = request.POST.get("searchterm")
+    context = {"articles": get_list(searchterm)}
+    request.session["articles"] = context["articles"]
     return render(
         request,
         "fetch.html",
