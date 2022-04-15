@@ -13,9 +13,10 @@ from email.mime.text import MIMEText
 
 def send_mail(sender_email, reciever_email, password, message, port):
     context = ssl.create_default_context()
+    print(reciever_email)
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, reciever_email, message.as_string())
+        server.sendmail(sender_email, list(reciever_email), message.as_string())
 
 
 def schedule_mail(context):
@@ -29,7 +30,7 @@ def schedule_mail(context):
 
     message = MIMEMultipart()
     message["From"] = sender_email
-    message["To"] = reciever_email
+    message["To"] = ",".join(reciever_email)
     message["Subject"] = subject
 
     BASE_DIR = Path(__file__).resolve().parent.parent

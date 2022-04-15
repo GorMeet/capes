@@ -39,7 +39,7 @@ class AddMailView(LoginRequiredMixin, CreateView):
         article_list = self.request.session.get("articles")
         context = {}
         context["from"] = self.request.user.email
-        context["to"] = ",".join(form.instance.recipients_list)
+        context["to"] = form.instance.recipients_list
         context["subject"] = form.instance.subject
         context["user_pswd"] = self.request.user.gapps_key
         context["port"] = 465
