@@ -97,7 +97,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "capes",
+        "NAME": "capes2",
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "localhost",
