@@ -15,7 +15,7 @@ def send_mail(sender_email, reciever_email, password, message, port):
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, reciever_email, message.as_string())
+        server.sendmail(sender_email, list(reciever_email), message.as_string())
 
 
 def schedule_mail(context):
@@ -26,10 +26,11 @@ def schedule_mail(context):
     password = context["user_pswd"]
     article_list = context["articles"]
     subject = context["subject"]
+    schedule_type = context["schedule_type"]
 
     message = MIMEMultipart()
     message["From"] = sender_email
-    message["To"] = reciever_email
+    message["To"] = ",".join(reciever_email)
     message["Subject"] = subject
 
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,12 +45,31 @@ def schedule_mail(context):
     from datetime import datetime
     from articleFetcher import schedule_mail
     from apscheduler.schedulers.blocking import BlockingScheduler
+    from apscheduler.schedulers.background import BackgroundScheduler
 
-    scheduler = BlockingScheduler()
-    scheduler.add_job(
-        send_mail,
-        "date",
-        run_date=send_time,
-        args=[sender_email, reciever_email, password, message, port],
-    )
+    if schedule_type == "once":
+        scheduler = BlockingScheduler()
+        scheduler.add_job(
+            send_mail,
+            "date",
+            run_date=send_time,
+            args=[sender_email, reciever_email, password, message, port],
+        )
+    elif schedule_type == "weekly":
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(
+            send_mail,
+            "interval",
+            weeks=1,
+            args=[sender_email, reciever_email, password, message, port],
+        )
+
+    elif schedule_type == "monthly":
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(
+            send_mail,
+            "interval",
+            days=30,
+            args=[sender_email, reciever_email, password, message, port],
+        )
     scheduler.start()

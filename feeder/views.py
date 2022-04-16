@@ -37,6 +37,8 @@ def home(request):
 
 def fetchfeed(request):
     searchterm = request.POST.get("searchterm")
+    if not searchterm:
+        searchterm = "news"
     context = {"articles": get_list(searchterm)}
     request.session["articles"] = context["articles"]
     return render(

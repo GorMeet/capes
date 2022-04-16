@@ -7,6 +7,8 @@ from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 import os
 
+schedule_choice = (("once", "Once"), ("weekly", "Weekly"), ("monthly", "Monthly"))
+
 
 class ScheduledMail(models.Model):
     sender = models.EmailField(max_length=255)
@@ -14,6 +16,9 @@ class ScheduledMail(models.Model):
     subject = models.CharField(max_length=78)
     body = models.CharField(max_length=40000)
     send_on = models.DateTimeField(default=datetime.today, blank=False)
+    schedule_type = models.CharField(
+        choices=schedule_choice, default="once", max_length=16
+    )
 
     def get_absolute_url(self):
         return reverse("mail", args=(str(self.id),))
