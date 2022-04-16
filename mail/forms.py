@@ -28,7 +28,4 @@ class MailForm(forms.ModelForm):
                 }
             ),
             "send_on": MinimalSplitDateTimeMultiWidget(),
-            "schedule_type": forms.ChoiceField(
-                choices=(("once", "Once"), ("Weekly", "weekly"), ("monthly", "Monthly"))
-            ),
         }
