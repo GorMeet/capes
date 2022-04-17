@@ -26,17 +26,16 @@ class AddMailView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         article_list = self.request.session.get("articles")
-        self.request.session["schedule_type"] = "weekly"
         BASE_DIR = Path(__file__).resolve().parent.parent
         html_message = loader.render_to_string(
             Path(BASE_DIR, "templates/mail/mail_template.html"),
             {"articles": article_list},
         )
-        return {"body": html_message, "schedule": self.request.session["schedule_type"]}
+        return {"body": html_message}
 
     def form_valid(self, form):
-
         form.instance.sender = self.request.user.email
+        form.save()
         article_list = self.request.session.get("articles")
         context = {}
         context["from"] = self.request.user.email
@@ -46,6 +45,7 @@ class AddMailView(LoginRequiredMixin, CreateView):
         context["port"] = 465
         context["send_time"] = form.instance.send_on
         context["articles"] = form.instance.body
+        context["searchterm"] = self.request.session.get("searchterm")
         context["schedule_type"] = form.instance.schedule_type
         from articleFetcher import schedule_mail
 
@@ -66,5 +66,5 @@ class AddMailView(LoginRequiredMixin, CreateView):
         with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(message["From"], message["To"], message.as_string())
-        """
         return super(AddMailView, self).form_valid(form)
+        """

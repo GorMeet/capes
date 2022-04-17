@@ -41,6 +41,7 @@ def fetchfeed(request):
         searchterm = "news"
     context = {"articles": get_list(searchterm)}
     request.session["articles"] = context["articles"]
+    request.session["searchterm"] = searchterm
     return render(
         request,
         "fetch.html",
