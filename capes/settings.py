@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "feeder.apps.FeederConfig",
     "mail",
     "user",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -57,13 +58,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "capes.wsgi.application"
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,15 +103,17 @@ AUTH_USER_MODEL = "user.Profile"
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
 
-"""
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.getenv("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.getenv("SQL_USER", "capes"),
-        "PASSWORD": os.getenv("SQL_PASSWORD", "postgres"),
-        "HOST": os.getenv("SQL_HOST", "postgres"),
-        "PORT": os.getenv("SQL_PORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv(
+            "POSTGRES_DB",
+        ),
+        "USER": os.getenv("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "PORT": "5432",
     }
 }
-"""
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

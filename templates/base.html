@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Feed Aggregator</title>
+    {% load crispy_forms_tags %}
     {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{% static 'style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <h2>Content Aggregator App</h2>
-    <div class="navbar-nav">
-      {% if user.is_authenticated %}
-      <a class="nav-item nav-link" href="{% url 'logout' %}"><button>Logout</button></a>
-      {% else %}
-      <a class="nav-item nav-link" href="{% url 'login' %}"><button>Login</button></a>
-      <a class="nav-item nav-link" href="{% url 'register' %}"><button>Register</button></a>
-      {% endif %}
-    <a href="{% url 'home' %}"><button>Home</button></a>
-    <a href="{% url 'createfeedlink' %}"><button>Add Feed</button></a>
-    </div>
+        <nav>
+        <h2>Content Aggregator App</h2>
+        <div class="navbar">
+          {% if user.is_authenticated %}
+              <a class="nav-item nav-link" href="{% url 'logout' %}"><button class="btn btn-link">Logout</button></a>
+          {% else %}
+              <a class="nav-item nav-link" href="{% url 'login' %}"><button class="btn btn-link">Login</button></a>
+              <a class="nav-item nav-link" href="{% url 'register' %}"><button class="btn btn-link">Register</button></a>
+          {% endif %}
+        <a href="{% url 'createfeedlink' %}"><button class="btn btn-link">Add Feed</button></a>
+        <a href="{% url 'home' %}"><button class="btn btn-link">Home</button></a>
+        </div>
+        </nav>
 
     {% block body %}
-    <form action="{% url 'fetchfeed' %}" method="post">
+    <form action="{% url 'fetchfeed' %}" method="post" id="searchfeed">
         {% csrf_token %}
+    <h3 class="btn ">CAPES' Article Search</h3>
         <div id="searchbar" type="text">
             <input id="searchbartext" type="search" name="searchterm" placeholder="search" />
             <button id="searchbarbutton" type="submit">

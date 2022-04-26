@@ -22,4 +22,8 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Using Docker Compose
 
+```
+docker-compose up
+```
