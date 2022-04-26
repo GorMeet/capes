@@ -6,6 +6,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.html import strip_tags
 from articleFetcher import schedule_mail
+from django.shortcuts import redirect
 
 from pathlib import Path
 from feeder.views import get_list
@@ -50,6 +51,7 @@ class AddMailView(LoginRequiredMixin, CreateView):
         from articleFetcher import schedule_mail
 
         schedule_mail.schedule_mail(context)
+        return redirect("home")
 
         """
         BASE_DIR = Path(__file__).resolve().parent.parent
@@ -66,5 +68,4 @@ class AddMailView(LoginRequiredMixin, CreateView):
         with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(message["From"], message["To"], message.as_string())
-        return super(AddMailView, self).form_valid(form)
         """

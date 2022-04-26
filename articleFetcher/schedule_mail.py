@@ -67,53 +67,66 @@ def schedule_mail(context):
     from apscheduler.schedulers.blocking import BlockingScheduler
     from apscheduler.schedulers.background import BackgroundScheduler
 
-    if schedule_type == "once":
-        scheduler = BlockingScheduler()
-        scheduler.add_job(
-            send_mail,
-            "date",
-            run_date=send_time,
-            args=[
-                sender_email,
-                reciever_email,
-                password,
-                message,
-                port,
-                searchterm,
-                schedule_type,
-            ],
+    now_time = datetime.now().replace(tzinfo=None)
+    difference = (send_time.replace(tzinfo=None) - now_time).total_seconds()
+    if difference <= 0:
+        send_mail(
+            sender_email,
+            reciever_email,
+            password,
+            message,
+            port,
+            searchterm,
+            schedule_type,
         )
-    elif schedule_type == "weekly":
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(
-            send_mail,
-            "interval",
-            weeks=1,
-            args=[
-                sender_email,
-                reciever_email,
-                password,
-                message,
-                port,
-                searchterm,
-                schedule_type,
-            ],
-        )
+    else:
+        if schedule_type == "once":
+            scheduler = BlockingScheduler()
+            scheduler.add_job(
+                send_mail,
+                "date",
+                run_date=send_time,
+                args=[
+                    sender_email,
+                    reciever_email,
+                    password,
+                    message,
+                    port,
+                    searchterm,
+                    schedule_type,
+                ],
+            )
+        elif schedule_type == "weekly":
+            scheduler = BackgroundScheduler()
+            scheduler.add_job(
+                send_mail,
+                "interval",
+                weeks=1,
+                args=[
+                    sender_email,
+                    reciever_email,
+                    password,
+                    message,
+                    port,
+                    searchterm,
+                    schedule_type,
+                ],
+            )
 
-    elif schedule_type == "monthly":
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(
-            send_mail,
-            "interval",
-            days=30,
-            args=[
-                sender_email,
-                reciever_email,
-                password,
-                message,
-                port,
-                searchterm,
-                schedule_type,
-            ],
-        )
-    scheduler.start()
+        elif schedule_type == "monthly":
+            scheduler = BackgroundScheduler()
+            scheduler.add_job(
+                send_mail,
+                "interval",
+                days=30,
+                args=[
+                    sender_email,
+                    reciever_email,
+                    password,
+                    message,
+                    port,
+                    searchterm,
+                    schedule_type,
+                ],
+            )
+        scheduler.start()
