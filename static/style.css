@@ -15,8 +15,12 @@ nav{
     flex-direction: row-reverse;
     align-content: stretch;
     justify-content: space-evenly;
+    text-align:center;
 }
 
+nav >h2{
+    text-align: center;
+}
 #searchfeed{
     padding-top: 10vh;
     padding-left: 25vw;
@@ -210,7 +214,15 @@ nav{
 #id_body{
     display: none;
 }
+.content-section{
+    width: auto;
+    max-width: 700px;
+    margin: 50px auto;
+}
 
+#email-sender{
+    padding: 10px;
+}
 #login{
     max-width: fit-content;
 }
@@ -220,4 +232,23 @@ nav{
 }
 .btn-link:hover{
     color: #bae8e8;
+}
+#Preview{
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.mb-3, .tab, #email-sender, #myForm, #div_id_rss_link{
+    width: auto;
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 0;
+}
+.form-group{
+    width: auto;
+    max-width: 700px;
+    padding: 0;
+}
+
+.btn-info{
 }
