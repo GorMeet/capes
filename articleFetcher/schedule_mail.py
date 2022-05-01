@@ -26,7 +26,7 @@ def send_mail(
         BASE_DIR = Path(__file__).resolve().parent.parent
         html_message = loader.render_to_string(
             Path(BASE_DIR, "templates/mail/mail_template.html"),
-            {"articles": article_list},
+            {"articles": article_list, "searchterm": searchterm},
         )
         text_content = strip_tags(html_message)
         body = MIMEText(article_list, "html")

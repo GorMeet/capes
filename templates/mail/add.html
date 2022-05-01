@@ -38,6 +38,13 @@
     {{ form.subject|as_crispy_field }}
       </div>
     {{ form.body|as_crispy_field }}
+
+      <div id="Preview" class="tabcontent" align="right">
+         <h2>Preview</h2>
+         <div class="mail-preview">
+            <p id="mail-content"></p>
+         </div>
+      </div>
     <div class="form-row">
       <div class="form-group col-md-6 mb-0">
           {{ form.send_on|as_crispy_field }}
@@ -46,12 +53,6 @@
           {{ form.schedule_type|as_crispy_field }}
       </div>
     </div>
-      <div id="Preview" class="tabcontent" align="right">
-         <h2>Preview</h2>
-         <div class="mail-preview">
-            <p id="mail-content"></p>
-         </div>
-      </div>
     <div class="form-row">
       <div class="form-group col-md-6 mb-0">
       <button id="send" onclick="sendmail()" class="btn btn-primary">Send Mail</button>
@@ -125,6 +126,7 @@
        }
             if(cityName == "id_body"){
                 document.getElementById("Preview").style.display = "none";           
+                document.getElementById("Preview").style
             }
             else{
                 document.getElementById("id_body").style.display = "none";           

@@ -27,10 +27,11 @@ class AddMailView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         article_list = self.request.session.get("articles")
+        searchterm = self.request.session.get("searchterm")
         BASE_DIR = Path(__file__).resolve().parent.parent
         html_message = loader.render_to_string(
             Path(BASE_DIR, "templates/mail/mail_template.html"),
-            {"articles": article_list},
+            {"articles": article_list, "searchterm": searchterm},
         )
         return {"body": html_message}
 
