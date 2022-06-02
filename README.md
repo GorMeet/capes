@@ -11,6 +11,9 @@ Content Aggregator and Email Sender System is a web application for sending and 
     - [Using Python and Postgres](#using-python-and-postgresql)
     - [Using Docker](#using-docker)
 - [Webpage UI](#webpage-user-interface)
+- [Team](#team)
+    - [Mentors](#mentors)
+    - [Members](#members)
 
 
 ## Objective
@@ -207,3 +210,22 @@ docker-compose up
   
 ![Mail Index Page](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1654170574/capes/mail-index.png)
 </details>
+
+---
+
+## Team
+
+### Mentors:
+Irfan Siddavatam ( irfansiddavatam@somaiya.edu )<br>
+Ashwini Dalvi ( ashwinidalvi@somaiya.edu )
+
+### Members:
+| Sr No. | Name          | e-mail                    | git-profile    |
+| ------ | ------------- | ------------------------- | -------------- |
+| 1.     | Meet Gor      | gor.m@somaiya.edu         | gormeet        |
+| 2.     | Rohan Kumar   | rohan.kumar@somaiya.edu   | rohxn          |
+| 3.     | Satvik Mishra | satvik.m@somaiya.edu      | Satvik049      |
+| 4.     | Govind Patra  | patra.g@somaiya.edu       | Govind416      |
+| 5.     | Hardik Singh  | hardik.singh1@somaiya.edu | HS-pro         |
+| 6.     | Parth jaju    | parth.jaju@somaiya.edu    | ParthJaju      |
+
