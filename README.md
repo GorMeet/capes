@@ -1,73 +1,24 @@
 # Content Aggregation + Email System (CAPES)
 
 Content Aggregator and Email Sender System is a web application for sending and scheduling mails. 
-<details>
-    <summary><b>Developer Guide</b></summary>
 
-Below is a step-by-step guide to setup the project in your local development environment. 
+## Table of Contents
+- [Objective](#objective)
+- [User Instructions](#user-instructions)
+    - [Create User Account](#simple-user-account)
+    - [Navigation](#user-interface)
+- [Installation Guide](#installation-guide)
+    - [Using Python and Postgres](#using-python-and-postgresql)
+    - [Using Docker](#using-docker)
+- [Webpage UI](#webpage-user-interface)
 
-### Installation
 
-```
-pip install virtualenv
+## Objective
 
-virtualenv venv
+* Provide a Search feature for listing the articles
+* Fetch the list of Articles into a Mail form
+* Send and scheduling Mails
 
-Windows:
-venv\Scripts\activate
-
-Linux/macOS:
-source venv/bin/activate.sh
-
-pip install -r requirements.txt
-
-python manage.py migrate
-
-python manage.py runserver
-```
-
-### Using Docker Compose
-
-```
-docker-compose up
-```
-
-## Creating a Environment keys file
-
-Create a file called `.env`on the root of the project structure i.e. the same folder where `manage.py` file is located.
-
-### Database details
-
-Add the following database details as per your configuration of PostgreSQL database.
-
-```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=password
-POSTGRES_DB=name_of_database
-POSTGRES_HOST=localhost
-```
-
-**NOTE: Use `POSTGRES_HOST=db` if using docker-compose.**
-
-### Generating Secret key
-
-To generate a `SECRET_KEY`, you need to open a Python REPL and enter a few commands.
-
-```
-python
-
-import secrets
-
-secrets.token_hex(24)
-```
-
-Copy the token without the quotes. Add the following in the `.env` file with the copied token.
-
-```
-SECRET_KEY=paste_the_token_here
-```
-
-</details>
 
 
 ## User Instructions
@@ -105,6 +56,109 @@ You can create a `Mail` app for your desired Operating System and generate the p
 
 
 https://user-images.githubusercontent.com/40317114/171638797-d5a3fe9e-9714-45af-9a97-d3b63925d783.mp4
+
+---
+
+## Installation Guide
+
+Below are the common instructions for the Python + PostgreSQL setup as well as the Docker setup.
+
+### Clone the repository
+
+```
+git clone https://github.com/gormeet/capes
+```
+
+### Creating a Environment keys file
+
+Create a file called `.env`on the root of the project structure i.e. the same folder where `manage.py` file is located.
+
+#### Database details
+
+Add the following database details as per your configuration of PostgreSQL database.
+
+```
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB=name_of_database
+POSTGRES_HOST=localhost
+```
+
+**NOTE: Use `POSTGRES_HOST=db` if using docker-compose.**
+
+### Generating Secret key
+
+To generate a `SECRET_KEY`, you need to open a Python REPL and enter a few commands.
+
+```
+python
+import secrets
+secrets.token_hex(24)
+```
+
+Copy the token without the quotes. Add the following in the `.env` file with the copied token.
+
+```
+SECRET_KEY=paste_the_token_here
+```
+Below is a step-by-step guide to setup the project in your local development environment. 
+
+## Using Python and PostgreSQL
+
+<details>
+    <summary><b>Installtion with Python + PostgreSQL</b></summary>
+
+- Install [Python](https://www.python.org/downloads/)
+- Install [PostgreSQL](https://www.postgresql.org/download/)
+- Install [pgAdmin](https://www.pgadmin.org/download/)
+    
+```
+pip install virtualenv
+virtualenv venv
+Windows:
+venv\Scripts\activate
+Linux/macOS:
+source venv/bin/activate.sh
+pip install -r requirements.txt
+```
+
+
+After setting up the database, you can migrate into the local PostgreSQL database.
+
+```
+python manage.py migrate
+python manage.py runserver
+```
+    
+</details>
+
+---
+    
+    
+## Using Docker
+
+<details>
+    <summary><b>Installtion with Docker</b></summary>
+        
+- Install [Docker](https://docs.docker.com/get-docker/) with [docker-compose](https://docs.docker.com/compose/install/).
+
+After setting up the database configuration and environement variables, you need to check if docker is properly installed by creating a image of this [Dockerfile](https://github.com/GorMeet/capes/blob/master/Dockerfile) and running the container with the following command.
+    
+```
+docker build .
+```
+    
+Finally, use the docker compose to run the fully-fledged web app with database with the docker-compose command:
+    
+```
+docker-compose up
+```
+    
+ </details>
+
+---
+
+## Webpage User Interface
 
 <details>
   <summary>Capes Home Page</summary>
