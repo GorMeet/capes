@@ -16,6 +16,7 @@ class ScheduledMail(models.Model):
     subject = models.CharField(max_length=78)
     body = models.CharField(max_length=40000)
     send_on = models.DateTimeField(default=datetime.today, blank=False)
+    status = models.CharField(max_length=32, blank=True)
     schedule_type = models.CharField(
         choices=schedule_choice, default="once", max_length=16
     )

@@ -1,8 +1,8 @@
 # Content Aggregation + Email System (CAPES)
 
 Content Aggregator and Email Sender System is a web application for sending and scheduling mails. 
-
-## Developer Guide
+<details>
+    <summary><b>Developer Guide</b></summary>
 
 Below is a step-by-step guide to setup the project in your local development environment. 
 
@@ -44,7 +44,10 @@ Add the following database details as per your configuration of PostgreSQL datab
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
 POSTGRES_DB=name_of_database
+POSTGRES_HOST=localhost
 ```
+
+**NOTE: Use `POSTGRES_HOST=db` if using docker-compose.**
 
 ### Generating Secret key
 
@@ -63,6 +66,9 @@ Copy the token without the quotes. Add the following in the `.env` file with the
 ```
 SECRET_KEY=paste_the_token_here
 ```
+
+</details>
+
 
 ## User Instructions
 
@@ -97,16 +103,53 @@ You can create a `Mail` app for your desired Operating System and generate the p
     - Schedule type (once/weekly/monthly)
 - Send the mail
 
-![Home Screen](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/homepage.png)
 
+https://user-images.githubusercontent.com/40317114/171638797-d5a3fe9e-9714-45af-9a97-d3b63925d783.mp4
+
+<details>
+  <summary>Capes Home Page</summary>
+  
+  ![Home Screen](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/homepage.png)
+</details>
+
+<details>
+  <summary>Registration Page</summary>
+  
 ![Register Account](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/register.png)
+</details>
 
+ <details>
+  <summary>LoginPage</summary>
+  
 ![Login Page](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/login.png)
+</details>
 
+<details>
+  <summary>Search Page</summary>
+  
 ![Search Result Page](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/searchpage.png)
+</details>
 
+<details>
+  <summary>Mail Form Page</summary>
+  
 ![Mail Form](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/mailform.png)
-
+</details>
+ 
+ <details>
+  <summary>RSS Feed Link Form Page</summary>
+  
 ![RSS Feed Link Adder](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1651424595/capes/rss_feed_link_adder.png)
-
-
+</details>
+   
+ <details>
+  <summary>Mail Outbox</summary>
+  
+![Mail Outbox](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1654170547/capes/mail-outbox.png)
+</details>
+   
+ <details>
+  <summary>Mail Index Page</summary>
+  
+![Mail Index Page](https://res.cloudinary.com/dgpxbrwoz/image/upload/v1654170574/capes/mail-index.png)
+</details>

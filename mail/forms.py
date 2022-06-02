@@ -6,7 +6,10 @@ from .datetimewidget import MinimalSplitDateTimeMultiWidget
 class MailForm(forms.ModelForm):
     class Meta:
         model = ScheduledMail
-        exclude = ["sender"]
+        exclude = [
+            "sender",
+            "status",
+        ]
 
         widgets = {
             "subject": forms.TextInput(

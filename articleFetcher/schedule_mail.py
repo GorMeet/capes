@@ -2,7 +2,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.html import strip_tags
 from feeder.views import get_list
-
+from mail.models import ScheduledMail
 from pathlib import Path
 import smtplib, ssl
 
@@ -13,7 +13,14 @@ from email.mime.text import MIMEText
 
 
 def send_mail(
-    sender_email, reciever_email, password, message, port, searchterm, schedule_type
+    sender_email,
+    reciever_email,
+    password,
+    message,
+    port,
+    searchterm,
+    schedule_type,
+    mail_obj,
 ):
 
     if schedule_type == "monthly" or schedule_type == "weekly":
@@ -36,8 +43,12 @@ def send_mail(
         server.login(sender_email, password)
         server.sendmail(sender_email, list(reciever_email), message.as_string())
 
+        obj = ScheduledMail.objects.get(pk=mail_obj.id)
+        obj.status = "Sent"
+        obj.save()
 
-def schedule_mail(context):
+
+def schedule_mail(context, obj):
     send_time = context["send_time"]
     port = context["port"]
     sender_email = context["from"]
@@ -78,10 +89,11 @@ def schedule_mail(context):
             port,
             searchterm,
             schedule_type,
+            obj,
         )
     else:
         if schedule_type == "once":
-            scheduler = BlockingScheduler()
+            scheduler = BackgroundScheduler()
             scheduler.add_job(
                 send_mail,
                 "date",
@@ -94,6 +106,7 @@ def schedule_mail(context):
                     port,
                     searchterm,
                     schedule_type,
+                    obj,
                 ],
             )
         elif schedule_type == "weekly":
@@ -110,6 +123,7 @@ def schedule_mail(context):
                     port,
                     searchterm,
                     schedule_type,
+                    obj,
                 ],
             )
 
@@ -127,6 +141,7 @@ def schedule_mail(context):
                     port,
                     searchterm,
                     schedule_type,
+                    obj,
                 ],
             )
         scheduler.start()

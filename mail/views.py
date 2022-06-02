@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, DetailView
 from .models import ScheduledMail
 from .forms import MailForm
 from django.core.mail import EmailMultiAlternatives
@@ -17,6 +17,21 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+
+class Outbox(LoginRequiredMixin, ListView):
+    model = ScheduledMail
+    template_name = "mail/outbox.html"
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        context["mails"] = ScheduledMail.objects.filter(sender=self.request.user.email)
+        return context
+
+
+class MailView(LoginRequiredMixin, DetailView):
+    model = ScheduledMail
+    template_name = "mail/index.html"
 
 
 class AddMailView(LoginRequiredMixin, CreateView):
@@ -37,7 +52,7 @@ class AddMailView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user.email
-        form.save()
+        obj = form.save()
         article_list = self.request.session.get("articles")
         context = {}
         context["from"] = self.request.user.email
@@ -51,7 +66,11 @@ class AddMailView(LoginRequiredMixin, CreateView):
         context["schedule_type"] = form.instance.schedule_type
         from articleFetcher import schedule_mail
 
-        schedule_mail.schedule_mail(context)
+        mailobj = ScheduledMail.objects.get(pk=obj.id)
+        mailobj.status = "Scheduled"
+        mailobj.save()
+
+        schedule_mail.schedule_mail(context, obj)
         return redirect("home")
 
         """
