@@ -227,5 +227,5 @@ Ashwini Dalvi ( ashwinidalvi@somaiya.edu )
 | 3.     | Satvik Mishra | satvik.m@somaiya.edu      | Satvik049      |
 | 4.     | Govind Patra  | patra.g@somaiya.edu       | Govind416      |
 | 5.     | Hardik Singh  | hardik.singh1@somaiya.edu | HS-pro         |
-| 6.     | Parth jaju    | parth.jaju@somaiya.edu    | ParthJaju      |
+| 6.     | Parth Jaju    | parth.jaju@somaiya.edu    | ParthJaju      |
 
